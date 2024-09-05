@@ -115,7 +115,7 @@ def get_subs(sub_metadata:dict) -> str:
 
 
 @st.cache_data(persist=True)
-def synthesize(prompt:str, text:str):
+def summarize(prompt:str, text:str):
     with OpenAI() as client:
         completion = client.chat.completions.create(
             model="gpt-4o-mini",
@@ -129,7 +129,7 @@ def synthesize(prompt:str, text:str):
     return completion.choices[0].message.content
 
 
-synthesizing_prompts = {
+summarizing_prompts = {
     "Summary":"Please provide a concise summary of the given text, capturing its main ideas and key arguments. Your summary should be approximately 20% of the original text's length. Focus on the central theme, primary arguments, and significant conclusions. Avoid including minor details or examples unless they are crucial to understanding the main points. Ensure that your summary gives a clear overview of the text's content and purpose.",
     "Key points":"Extract and list the most important points from the given text. Identify crucial facts, central concepts, and pivotal arguments. Present each key point as a brief, clear statement. Aim for 5-7 key points, depending on the text's length and complexity. Include any critical data, statistics, or findings that are fundamental to the text's message. Ensure that someone reading only these key points would grasp the essential information conveyed in the full text.",
     "Q&A":"""Based on the given text, generate a set of 5-7 important questions that cover the main topics and ideas presented. Then, provide concise yet comprehensive answers to each question using information directly from the text. Ensure that the questions and answers together cover the text's key concepts, arguments, and conclusions.
@@ -154,7 +154,7 @@ The goal is to create a version that enhances clarity and comprehension while fa
 }
 
 def prepare_prompt(method:str):
-    return synthesizing_prompts[method] + "\n\n\Write your output in ENGLISH independent of the input lang."
+    return summarizing_prompts[method] + "\n\n\Write your output in ENGLISH independent of the input lang."
 
 
 

@@ -19,7 +19,7 @@ def get_highest_priority(strings):
 
 # ----------------------------------
 with st.sidebar:
-    method = st.selectbox(label="Synthesizing method", options=synthesizing_prompts.keys())
+    method = st.selectbox(label="Summarizing method", options=summarizing_prompts.keys())
 
 # ----------------------------------
 video_url = st.text_input(label="Link",placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ")
@@ -50,7 +50,7 @@ if video_url != "":
 
     # Writing syntesized text.
     st.write("---")
-    st.write(syn := synthesize(prompt, text := get_subs(subs[lang])))
+    st.write(syn := summarize(prompt, text := get_subs(subs[lang])))
 
     # Preparing download bottons.
     st.write("---")
