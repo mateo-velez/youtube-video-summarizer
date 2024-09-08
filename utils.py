@@ -116,8 +116,8 @@ def get_subs(sub_metadata:dict) -> str:
 
 
 @st.cache_data(persist=True)
-def summarize(prompt:str, text:str):
-    with OpenAI() as client:
+def summarize(prompt:str, text:str, api_key:str):
+    with OpenAI(api_key=api_key) as client:
         completion = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=[

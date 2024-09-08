@@ -19,6 +19,7 @@ def get_highest_priority(strings):
 
 # ----------------------------------
 with st.sidebar:
+    api_key = st.text_input(label="", label_visibility=False, placeholder="OPENAI API KEY",type="password")
     method = st.selectbox(label="Summarizing method", options=summarizing_prompts.keys())
 
 # ----------------------------------
@@ -50,7 +51,7 @@ if video_url != "":
 
     # Writing syntesized text.
     st.write("---")
-    st.write(syn := summarize(prompt, text := get_subs(subs[lang])))
+    st.write(syn := summarize(prompt, text := get_subs(subs[lang]), api_key=api_key))
 
     # Preparing download bottons.
     st.write("---")
