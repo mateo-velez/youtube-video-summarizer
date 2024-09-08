@@ -54,7 +54,6 @@ if video_url != "":
 
     # Preparing download bottons.
     st.write("---")
-    c1,c2,c3 = st.columns(3)
+    c1,c2 = st.columns(2)
     c1.download_button(label="Raw",data=text,file_name=f"{info['title']}.txt",use_container_width=True)
-    c2.download_button(label="PDF",data='',file_name=f"{info['title']}.pdf",use_container_width=True)
-    c3.download_button(label="Text",data=syn,file_name=f"{info['title']}.md",use_container_width=True)
+    c2.download_button(label="Text",data=syn,file_name=f"{info['title']}.md",use_container_width=True)
