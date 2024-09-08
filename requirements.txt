@@ -1,0 +1,5 @@
+streamlit
+yt-dlp
+requests
+m3u8
+openai
