@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import List
 import yt_dlp
 import requests
@@ -128,29 +129,18 @@ def summarize(prompt:str, text:str):
     
     return completion.choices[0].message.content
 
+@st.cache_data
+def read(path:Path):
+    with open(path, 'r') as file:
+        text = file.read()
+        
+    return text
 
 summarizing_prompts = {
-    "Summary":"Please provide a concise summary of the given text, capturing its main ideas and key arguments. Your summary should be approximately 20% of the original text's length. Focus on the central theme, primary arguments, and significant conclusions. Avoid including minor details or examples unless they are crucial to understanding the main points. Ensure that your summary gives a clear overview of the text's content and purpose.",
-    "Key points":"Extract and list the most important points from the given text. Identify crucial facts, central concepts, and pivotal arguments. Present each key point as a brief, clear statement. Aim for 5-7 key points, depending on the text's length and complexity. Include any critical data, statistics, or findings that are fundamental to the text's message. Ensure that someone reading only these key points would grasp the essential information conveyed in the full text.",
-    "Q&A":"""Based on the given text, generate a set of 5-7 important questions that cover the main topics and ideas presented. Then, provide concise yet comprehensive answers to each question using information directly from the text. Ensure that the questions and answers together cover the text's key concepts, arguments, and conclusions.
-
-Make sure the questions are diverse and cover different aspects of the text, and that the answers are accurate and informative.
-
-Format your response as:
-## [Question]
-[Answer]
-
-## [Question]
-[Answer]""",
-    "Paraphrasing":"""Please rewrite the given text in your own words, maintaining its original meaning and key ideas. Your paraphrased version should:
-- Be approximately the same length as the original text
-- Use different vocabulary and sentence structures where possible
-- Clarify any complex concepts or jargon
-- Maintain the original tone and intent of the text
-- Ensure all key information and arguments are preserved
-- Be easily understandable to a general audience
-
-The goal is to create a version that enhances clarity and comprehension while faithfully representing the original content."""
+    "Summary":read(Path("prompts/summary.md")),
+    "Key points":read(Path("prompts/key_points.md")),
+    "Q&A":read(Path("prompts/qa.md")),
+    "Paraphrasing":read(Path("prompts/paraphrasing.md"))
 }
 
 def prepare_prompt(method:str):
